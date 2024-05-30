@@ -2,12 +2,15 @@ syntax = "proto3";
 
 package auth;
 
+import "google/protobuf/empty.proto";
+
 option go_package = "sawyer.sso.v1;ssov1";
 
 service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+  rpc User (google.protobuf.Empty) returns (UserResponse);
 }
 
 message RegisterRequest {
@@ -35,3 +38,10 @@ message IsAdminRequest {
 message IsAdminResponse {
   bool is_admin = 1;
 }
+
+message UserResponse {
+  bool user_exists = 1;
+}
+
+//protoc -I C:\Users\Public\protos\proto C:\Users\Public\protos\proto\sso\sso.proto --go_out=C:\Users\Public\protos\gen\go --go_opt=paths=source_relative --go-grpc_out=C:\Users\Public\
+//protos\gen\go --go-grpc_opt=paths=source_relative
